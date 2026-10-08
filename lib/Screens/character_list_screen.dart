@@ -21,6 +21,9 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
       description:
           'The Boy Who Lived, famous for defeating Lord Voldemort as an infant and known for his bravery in Gryffindor house.',
     ),
+
+
+
     HogwartsCharacter(
       name: 'Hermione Granger',
       ability: 'Time-Turner / Crookshanks',
@@ -30,6 +33,8 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
       description:
           'An exceptionally talented and logical witch, top of her class at Hogwarts and key member of the Golden Trio.',
     ),
+
+
     HogwartsCharacter(
       name: 'Ron Weasley',
       ability: 'Wizard Chess / Scabbers',
@@ -39,6 +44,10 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
       description:
           'A loyal Gryffindor wizard from a large pure-blood family, known for his tactical bravery and skill at Wizard Chess.',
     ),
+
+
+
+
     HogwartsCharacter(
       name: 'Draco Malfoy',
       ability: 'Broomstick Flying / Slytherin',
@@ -48,6 +57,10 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
       description:
           'A cunning Slytherin wizard from a wealthy pure-blood family, known for his rivalries and complex destiny at Hogwarts.',
     ),
+
+
+
+
     HogwartsCharacter(
       name: 'Albus Dumbledore',
       ability: 'Elder Wand / Phoenix Fawkes',
@@ -57,6 +70,11 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
       description:
           'The wise and revered Headmaster of Hogwarts School of Witchcraft and Wizardry, considered one of the greatest wizards of all time.',
     ),
+
+
+
+
+
     HogwartsCharacter(
       name: 'Severus Snape',
       ability: 'Potions Master / Occlumency',
@@ -66,6 +84,10 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
       description:
           'The enigmatic Potions Master and Defense Against the Dark Arts professor, possessing profound mastery over Occlumency.',
     ),
+
+
+
+
     HogwartsCharacter(
       name: 'Lord Voldemort',
       ability: 'Dark Arts / Nagini',
@@ -75,6 +97,11 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
       description:
           'The most dangerous Dark wizard of all time, who sought immortality and supreme dominance over the wizarding world.',
     ),
+
+
+
+
+
     HogwartsCharacter(
       name: 'Rubeus Hagrid',
       ability: 'Care of Magical Creatures',
@@ -84,6 +111,7 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
       description:
           'The beloved Keeper of Keys and Grounds at Hogwarts, known for his deep affection and gentle nature towards magical creatures.',
     ),
+    
   ];
 
   final Set<String> _favoriteNames = {};

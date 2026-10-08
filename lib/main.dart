@@ -11,7 +11,7 @@ class LegoHarryPotterApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final seedColor = const Color(0xFF740001); 
+    final seedColor = const Color(0xFF740001);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'LEGO® Harry Potter™',
@@ -20,7 +20,7 @@ class LegoHarryPotterApp extends StatelessWidget {
         scaffoldBackgroundColor: Colors.white,
         colorScheme: ColorScheme.fromSeed(
           seedColor: seedColor,
-          secondary: const Color(0xFFD3A625), 
+          secondary: const Color(0xFFD3A625),
           surface: Colors.white,
         ),
         textTheme: GoogleFonts.poppinsTextTheme(),
