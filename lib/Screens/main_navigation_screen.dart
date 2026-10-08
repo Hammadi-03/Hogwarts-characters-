@@ -34,7 +34,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
           NavigationDestination(
             icon: const Icon(Icons.people_outline_rounded),
             selectedIcon: Icon(Icons.people_alt_rounded, color: theme.colorScheme.primary),
-            label: 'Characters',
+            label: 'Character',
           ),
         
 
