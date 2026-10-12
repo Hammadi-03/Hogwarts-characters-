@@ -30,15 +30,10 @@ class CharacterDetailScreen extends StatelessWidget {
             // Section 1
 
 
-            Center(
-              child: Hero(
-                tag: character.name,
-                child: CircleAvatar(
-                  radius: 85,
-                  backgroundColor: Colors.grey.shade200,
-                  backgroundImage: _getImageProvider(character.imageUrl),
-                ),
-              ),
+            Image(
+              image: _getImageProvider(character.imageUrl),
+              width: double.infinity,
+              fit: BoxFit.contain,
             ),
 
             const SizedBox(height: 20),
@@ -107,7 +102,7 @@ class CharacterDetailScreen extends StatelessWidget {
                         style: GoogleFonts.poppins(
                           fontSize: 15,
                           height: 1.6,
-                          color: Colors.black87,
+                          color: Colors.black87
                         ),
                       ),
                     ],
@@ -116,45 +111,6 @@ class CharacterDetailScreen extends StatelessWidget {
               ),
             ),
 
-            const SizedBox(height: 20),
-
-            // Section 4
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-              child: SizedBox(
-                width: 200,
-                height: 54,
-                child: ElevatedButton.icon(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: character.houseColor,
-                    foregroundColor: Colors.white,
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.zero,
-                    ),
-                    elevation: 1,
-                  ),
-                  icon: const Icon(Icons.bolt_rounded),
-                  label: Text(
-                    'Cast Signature Spell',
-                    style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                  onPressed: () {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('✨ Wand activated for ${character.name}!'),
-                        backgroundColor: character.houseColor,
-                        behavior: SnackBarBehavior.floating,
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.vertical(
-                            top: Radius.circular(16),
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ),
-            ),
 
             const SizedBox(height: 30),
           ],

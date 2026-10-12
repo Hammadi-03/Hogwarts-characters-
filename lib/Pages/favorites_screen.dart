@@ -12,7 +12,7 @@ class FavoritesScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text('Saved Witches & Wizards'),
+        title: const Text('Favorites'),
         backgroundColor: Colors.white,
       ),
       body: Center(
@@ -44,22 +44,12 @@ class FavoritesScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 24),
                   Text(
-                    'Your Favorites List is Empty',
+                    'Favorites List',
                     textAlign: TextAlign.center,
                     style: GoogleFonts.cinzel(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                       color: const Color(0xFF740001),
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-                  Text(
-                    'Tap the heart icon on any witch or wizard card to save them to your personal favorites collection!',
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.poppins(
-                      fontSize: 13,
-                      color: Colors.grey.shade700,
-                      height: 1.5,
                     ),
                   ),
                 ],

@@ -175,13 +175,10 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
                             padding: const EdgeInsets.all(12.0),
                             child: Row(
                               children: [
-                                Hero(
-                                  tag: character.name,
-                                  child: CircleAvatar(
-                                    radius: 34,
-                                    backgroundColor: Colors.grey.shade200,
-                                    backgroundImage: _getImageProvider(character.imageUrl),
-                                  ),
+                                CircleAvatar(
+                                  radius: 34,
+                                  backgroundColor: Colors.grey.shade200,
+                                  backgroundImage: _getImageProvider(character.imageUrl),
                                 ),
                                 const SizedBox(width: 16),
                                 Expanded(

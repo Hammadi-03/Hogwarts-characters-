@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'Screens/main_navigation_screen.dart';
+import 'Pages/main_navigation_screen.dart';
 
 void main() {
   runApp(const LegoHarryPotterApp());
