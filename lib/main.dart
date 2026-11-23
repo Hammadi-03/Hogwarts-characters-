@@ -26,7 +26,7 @@ class LegoHarryPotterApp extends StatelessWidget {
         textTheme: GoogleFonts.poppinsTextTheme(),
         appBarTheme: AppBarTheme(
           centerTitle: true,
-          elevation: 0,
+          elevation:6,
 
           scrolledUnderElevation: 0,
           backgroundColor: Colors.white,
