@@ -137,7 +137,7 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
         children: [
           const SizedBox(height: 8),
 
-          // Character List
+          // Character List — responsive: list on mobile, grid on tablet/PC
           Expanded(
             child: filtered.isEmpty
                 ? Center(
@@ -146,91 +146,222 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
                       style: GoogleFonts.poppins(color: Colors.grey.shade600, fontSize: 16),
                     ),
                   )
-                : ListView.builder(
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                    itemCount: filtered.length,
-                    itemBuilder: (context, index) {
-                      final character = filtered[index];
-                      final isFav = _favoriteNames.contains(character.name);
+                : LayoutBuilder(
+                    builder: (context, constraints) {
+                      final isWide = constraints.maxWidth >= 600;
 
-                      return Card(
-                        color: Colors.white,
-                        elevation: 1,
-                        margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 4),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.zero,
-                          side: BorderSide(color: Colors.grey.shade200),
-                        ),
-                        child: InkWell(
-                          borderRadius: BorderRadius.zero,
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => CharacterDetailScreen(character: character),
+                      if (isWide) {
+                        // ── Grid view for tablet / PC ──
+                        final crossAxisCount = constraints.maxWidth >= 1100
+                            ? 4
+                            : constraints.maxWidth >= 800
+                                ? 3
+                                : 2;
+
+                        return GridView.builder(
+                          padding: const EdgeInsets.all(16),
+                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: crossAxisCount,
+                            crossAxisSpacing: 16,
+                            mainAxisSpacing: 16,
+                            childAspectRatio: 0.75,
+                          ),
+                          itemCount: filtered.length,
+                          itemBuilder: (context, index) {
+                            final character = filtered[index];
+                            final isFav = _favoriteNames.contains(character.name);
+
+                            return Card(
+                              color: Colors.white,
+                              elevation: 2,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                                side: BorderSide(color: Colors.grey.shade200),
                               ),
-                            );
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.all(12.0),
-                            child: Row(
-                              children: [
-                                CircleAvatar(
-                                  radius: 34,
-                                  backgroundColor: Colors.grey.shade200,
-                                  backgroundImage: _getImageProvider(character.imageUrl),
-                                ),
-                                const SizedBox(width: 16),
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        character.name,
-                                        style: GoogleFonts.poppins(
-                                          fontSize: 17,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      const SizedBox(height: 6),
-                                      Container(
-                                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                                        decoration: const BoxDecoration(
-                                          color: Color(0xFF740001),
-                                          borderRadius: BorderRadius.zero,
-                                        ),
-                                        child: Text(
-                                          character.ability,
-                                          style: GoogleFonts.poppins(
-                                            fontSize: 11,
-                                            color: character.textColor,
-                                            fontWeight: FontWeight.w600,
+                              clipBehavior: Clip.antiAlias,
+                              child: InkWell(
+                                borderRadius: BorderRadius.circular(12),
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => CharacterDetailScreen(character: character),
+                                    ),
+                                  );
+                                },
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                                  children: [
+                                    // Character image
+                                    Expanded(
+                                      flex: 3,
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          color: Colors.grey.shade100,
+                                          image: DecorationImage(
+                                            image: _getImageProvider(character.imageUrl),
+                                            fit: BoxFit.cover,
                                           ),
                                         ),
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                    // Info section
+                                    Expanded(
+                                      flex: 2,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(12.0),
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Row(
+                                              children: [
+                                                Expanded(
+                                                  child: Text(
+                                                    character.name,
+                                                    style: GoogleFonts.poppins(
+                                                      fontSize: 16,
+                                                      fontWeight: FontWeight.bold,
+                                                    ),
+                                                    maxLines: 1,
+                                                    overflow: TextOverflow.ellipsis,
+                                                  ),
+                                                ),
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    setState(() {
+                                                      if (isFav) {
+                                                        _favoriteNames.remove(character.name);
+                                                      } else {
+                                                        _favoriteNames.add(character.name);
+                                                      }
+                                                    });
+                                                  },
+                                                  child: Icon(
+                                                    isFav ? Icons.favorite_rounded : Icons.favorite_border_rounded,
+                                                    color: isFav ? const Color(0xFF740001) : Colors.grey.shade400,
+                                                    size: 22,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            const SizedBox(height: 8),
+                                            Container(
+                                              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                                              decoration: BoxDecoration(
+                                                color: character.houseColor,
+                                                borderRadius: BorderRadius.circular(4),
+                                              ),
+                                              child: Text(
+                                                character.ability,
+                                                style: GoogleFonts.poppins(
+                                                  fontSize: 10,
+                                                  color: character.textColor,
+                                                  fontWeight: FontWeight.w600,
+                                                ),
+                                                maxLines: 1,
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                                IconButton(
-                                  icon: Icon(
-                                    isFav ? Icons.favorite_rounded : Icons.favorite_border_rounded,
-                                    color: isFav ? const Color(0xFF740001) : Colors.grey.shade400,
-                                    size: 26,
-                                  ),
-                                  onPressed: () {
-                                    setState(() {
-                                      if (isFav) {
-                                        _favoriteNames.remove(character.name);
-                                      } else {
-                                        _favoriteNames.add(character.name);
-                                      }
-                                    });
-                                  },
-                                ),
-                              ],
+                              ),
+                            );
+                          },
+                        );
+                      }
+
+                      // ── List view for mobile ──
+                      return ListView.builder(
+                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                        itemCount: filtered.length,
+                        itemBuilder: (context, index) {
+                          final character = filtered[index];
+                          final isFav = _favoriteNames.contains(character.name);
+
+                          return Card(
+                            color: Colors.white,
+                            elevation: 1,
+                            margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 4),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.zero,
+                              side: BorderSide(color: Colors.grey.shade200),
                             ),
-                          ),
-                        ),
+                            child: InkWell(
+                              borderRadius: BorderRadius.zero,
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => CharacterDetailScreen(character: character),
+                                  ),
+                                );
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.all(12.0),
+                                child: Row(
+                                  children: [
+                                    CircleAvatar(
+                                      radius: 34,
+                                      backgroundColor: Colors.grey.shade200,
+                                      backgroundImage: _getImageProvider(character.imageUrl),
+                                    ),
+                                    const SizedBox(width: 16),
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            character.name,
+                                            style: GoogleFonts.poppins(
+                                              fontSize: 17,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 6),
+                                          Container(
+                                            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                                            decoration: const BoxDecoration(
+                                              color: Color(0xFF740001),
+                                              borderRadius: BorderRadius.zero,
+                                            ),
+                                            child: Text(
+                                              character.ability,
+                                              style: GoogleFonts.poppins(
+                                                fontSize: 11,
+                                                color: character.textColor,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    IconButton(
+                                      icon: Icon(
+                                        isFav ? Icons.favorite_rounded : Icons.favorite_border_rounded,
+                                        color: isFav ? const Color(0xFF740001) : Colors.grey.shade400,
+                                        size: 26,
+                                      ),
+                                      onPressed: () {
+                                        setState(() {
+                                          if (isFav) {
+                                            _favoriteNames.remove(character.name);
+                                          } else {
+                                            _favoriteNames.add(character.name);
+                                          }
+                                        });
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          );
+                        },
                       );
                     },
                   ),
